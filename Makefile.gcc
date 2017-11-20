@@ -1,0 +1,16 @@
+FC          = gcc
+MODULES     = mod_random.o brute_force_3D.o
+EXE         = brute_force_3D
+FFLAGS      = -O3 -Wall -fopenmp
+LIBS        = -lm -lgfortran
+
+all: $(MODULES) $(EXE)
+
+$(MODULES): %.o: %.f90
+	$(FC) $(FFLAGS) -c $< -o $@ $(INC)
+
+$(EXE):
+	$(FC) $(FFLAGS) -o $(EXE) $(MODULES) $(LIBS)
+
+clean:
+	rm -f *.o *.mod $(EXE)

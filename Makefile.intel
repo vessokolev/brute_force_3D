@@ -1,0 +1,15 @@
+FC          = ifort
+MODULES     = mod_random.o brute_force_3D.o
+EXE         = brute_force_3D
+FFLAGS      = -ipo -xHost -static-intel
+
+all: $(MODULES) $(EXE)
+
+$(MODULES): %.o: %.f90
+	$(FC) -c $(FFLAGS) $< -o $@ $(INC)
+
+$(EXE):
+	$(FC) $(FFLAGS) -o $(EXE) $(MODULES)
+
+clean:
+	rm -f *.o *.mod $(EXE)
